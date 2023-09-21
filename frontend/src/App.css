@@ -1,6 +1,6 @@
 .app-container {
-    display: inline-grid;
+  display: inline-grid;
 }
 .app-container > * {
-    margin-top: 20px;
+  margin-top: 20px;
 }
