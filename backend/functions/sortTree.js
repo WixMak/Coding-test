@@ -9,7 +9,7 @@ const sortTree = (sortedData, parentMap, root) => {
   //Use HashMap to get the children by parent(categoryId)
   root.forEach((root) => {
     const children = parentMap.get(root.categoryId) || [];
-    children.sort((a, b) => a.categoryId.localeCompare(b.categoryId))
+    children.sort((a, b) => a.categoryId.localeCompare(b.categoryId));
 
     //If no children, skip adding children props
     if (children.length !== 0) {

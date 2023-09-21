@@ -1,7 +1,9 @@
 // import https from "https";
 
 const express = require("express");
-const { getInternetConnectionStatus } = require("./functions/getResponseStatus");
+const {
+  getInternetConnectionStatus,
+} = require("./functions/getResponseStatus");
 const FunctionRouter = require("./route/function-route");
 
 const app = express();
@@ -18,12 +20,11 @@ app.use((req, res, next) => {
   next();
 });
 
-app.get('/', (req, res) => {
+app.get("/", (req, res) => {
   const uri = "https://www.google.com";
   getInternetConnectionStatus(uri, (status) => {
     res.send(`Connection condition: ${status}`);
   });
-
 });
 
 app.use(express.static("public"));
