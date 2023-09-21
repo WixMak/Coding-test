@@ -1,67 +1,68 @@
-import React, {useState} from "react";
-import {TreeSelect} from "antd";
+import React, { useEffect, useState } from "react";
+import {Button, TreeSelect} from "antd";
+import { useDispatch, useSelector } from "react-redux";
+import { FETCH_DATA } from "./redux-saga/reducer";
+import useRedux from "./hook/useRedux";
 
-const treeData = [
-  {
-    value: 'parent 1',
-    title: 'parent 1',
-    children: [
-      {
-        value: 'parent 1-0',
-        title: 'parent 1-0',
-        children: [
-          {
-            value: 'leaf1',
-            title: 'leaf1',
-          },
-          {
-            value: 'leaf2',
-            title: 'leaf2',
-          },
-        ],
-      },
-      {
-        value: 'parent 1-1',
-
-   title: 'parent 1-1',
-        children: [
-          {
-            value: 'leaf3',
-            title: 'leaf3',
-            children: [
-
-            ]
-          },
-        ],
-      },
-    ],
-  },
-];
+import "./App.css";
 
 function App() {
-
   const [value, setValue] = useState();
+  const dispatch = useDispatch();
 
-  const onChange = (newValue) => {
-    setValue(prev => newValue);
-    console.log(value)
-  };
+
+  //This is custom hook
+  const custom_hook = useRedux();
+
+  //Not sure do I have to fetch the data when start rendering because the question require to use button fetch the data
+  //   useEffect(() => {
+  //       dispatch({type: FETCH_DATA})
+  //       console.log(treeData)
+  //   },[])
+
+
+    //Handler TreeSelect onSelect and send alert
+    const onChange = (newValue) => {
+        setValue(prev => newValue);
+        alert(`You selected ID: ${newValue}`)
+     };
+
+    //Button 1 is through Saga to store data
+    const handleBtn1Click = () => {
+        dispatch({type: FETCH_DATA});
+    };
+
+    //Button 2 is directly store data to Redux
+    const handleBtn2Click = () => {
+        custom_hook.fetchData()
+    };
 
   return (
-    <React.Fragment>
-      <h1> This is Coding test</h1>
-        <TreeSelect
-            showSearch
-            style={{ width: '100%' }}
-            value={value}
-            dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
-            placeholder="Please select"
-            allowClear
-            treeDefaultExpandAll
-            onChange={onChange}
-            treeData={treeData}
-        />
-    </React.Fragment>
+        <div className="app-container">
+          <h1> This is Coding test</h1>
+
+                <TreeSelect
+                    showSearch
+                    style={{ width: '100%' }}
+                    value={value}
+                    dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+                    placeholder="Please select"
+                    allowClear
+                    fieldNames={{
+                        value:"categoryId",
+                        label:"name",
+                    }}
+                    onSelect={onChange}
+                    treeData={custom_hook.treeData}
+                />
+
+            <Button onClick={handleBtn1Click}>Button 1</Button>
+            <Button onClick={handleBtn2Click}>Button 2</Button>
+            <span>{custom_hook.message}</span>
+
+
+        </div>
+
   );
 }
 
