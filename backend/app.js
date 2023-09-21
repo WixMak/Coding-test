@@ -7,6 +7,13 @@ const FunctionRouter = require('./route/function-route');
 const app = express();
 const port = 8080;
 
+app.use((req, res, next) => {
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Access-Control-Allow-Methods", "GET");
+    res.setHeader("Access-Control-Allow-Headers", "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-type, Authorization");
+    next();
+});
+
 app.use(express.static('public'));
 
 app.use('/api/functions', FunctionRouter);

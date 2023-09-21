@@ -1,6 +1,8 @@
 const sortTree = (sortedData, parentMap, root) => {
     const newRoot = [];
 
+    console.log("start running-------------------------------")
+
     //In case there is an element do not match any parent.
     if (root.length === 0 && parentMap.size !== 0){
         return "This data went wrong, please check the data input";
@@ -11,6 +13,7 @@ const sortTree = (sortedData, parentMap, root) => {
     //Use HashMap to get the children by parent(categoryId)
     root.forEach((root) => {
         const children = parentMap.get(root.categoryId) || [];
+        console.log(children.sort((a, b) => a.categoryId.localeCompare(b.categoryId)))
 
         //If no children, skip adding children props
         if (children.length !== 0) {
