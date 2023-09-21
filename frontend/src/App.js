@@ -41,6 +41,8 @@ function App() {
         <div className="app-container">
           <h1> This is Coding test</h1>
 
+            {custom_hook.treeData.length !== 0 ? (
+
                 <TreeSelect
                     showSearch
                     style={{ width: '100%' }}
@@ -55,9 +57,14 @@ function App() {
                     onSelect={onChange}
                     treeData={custom_hook.treeData}
                 />
+                ) : (
+                    <span>
+                        Click below to show Data
+                    </span>
+            )}
 
-            <Button onClick={handleBtn1Click}>Button 1</Button>
-            <Button onClick={handleBtn2Click}>Button 2</Button>
+            <Button onClick={handleBtn1Click}>Button 1 through saga to Redux</Button>
+            <Button onClick={handleBtn2Click}>Button 2 directly to Redux</Button>
             <span>{custom_hook.message}</span>
 
 
